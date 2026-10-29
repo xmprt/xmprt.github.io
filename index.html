@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XImport</title>
+  <meta name="description" content="XImport – Powerful productivity tools for Revit. Available on the Autodesk App Store.">
+  <style>
+    :root {
+      --primary: #0696D7;
+      --primary-dark: #0476A8;
+      --accent: #FF6A00;
+      --text: #1a1a1a;
+      --text-muted: #555;
+      --bg: #ffffff;
+      --bg-alt: #f7f9fc;
+      --border: #e2e8f0;
+      --radius: 10px;
+      --shadow: 0 4px 20px rgba(0,0,0,0.06);
+      --max-width: 1100px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Header */
+    header {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .logo span {
+      color: var(--primary);
+    }
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+    nav a:hover {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #f0f7fc 0%, #e8f4f8 100%);
+      padding: 4rem 1.5rem 3.5rem;
+      text-align: center;
+    }
+    .hero-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+    .hero .tagline {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 1.75rem;
+    }
+    .hero .badge {
+      display: inline-block;
+      background: #e6f4fa;
+      color: var(--primary-dark);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 1.25rem;
+    }
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.85rem 1.6rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn:hover {
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+    .btn-secondary {
+      background: white;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background: var(--bg-alt);
+    }
+
+    /* Sections */
+    section {
+      padding: 3.5rem 1.5rem;
+    }
+    .section-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    .section-intro {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+
+    /* Features */
+    .features {
+      background: var(--bg);
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .feature-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: box-shadow 0.2s;
+    }
+    .feature-card:hover {
+      box-shadow: var(--shadow);
+    }
+    .feature-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .icon {
+      width: 28px;
+      height: 28px;
+      background: var(--primary);
+      color: white;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    /* Screenshots */
+    .screenshots {
+      background: var(--bg-alt);
+    }
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+    .screenshot {
+      background: #d0dce8;
+      border-radius: var(--radius);
+      aspect-ratio: 16/10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #5a6a7a;
+      font-size: 0.95rem;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .screenshot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Pricing / Download */
+    .download {
+      background: var(--bg);
+      text-align: center;
+    }
+    .price-box {
+      display: inline-block;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem;
+      max-width: 420px;
+      box-shadow: var(--shadow);
+    }
+    .price {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--text);
+      margin: 0.5rem 0;
+    }
+    .price span {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .price-note {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Support */
+    .support {
+      background: var(--bg-alt);
+    }
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .support-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+    .support-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .support-card p, .support-card ul {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .support-card ul {
+      list-style: none;
+      margin-top: 0.5rem;
+    }
+    .support-card li {
+      margin-bottom: 0.3rem;
+    }
+
+    /* Footer */
+    footer {
+      background: #1a2332;
+      color: #a0aec0;
+      padding: 2.5rem 1.5rem 1.5rem;
+      font-size: 0.9rem;
+    }
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    footer h4 {
+      color: white;
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+    }
+    footer a {
+      color: #a0aec0;
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+    footer a:hover {
+      color: white;
+    }
+    .footer-bottom {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding-top: 1.5rem;
+      border-top: 1px solid #2d3748;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        gap: 1rem;
+      }
+      .hero {
+        padding: 3rem 1.25rem;
+      }
+      section {
+        padding: 2.5rem 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- Header --><header>
+<div class="header-inner"><a href="#" class="logo" style="font-family: 'Tahoma', serif;"><span>XImport</span></a><nav><a href="#features">Features</a>
+    
+    
+    
+<!--            <a href="#screenshots">Screenshots</a>            -->
+    
+    
+    
+<a href="#download">Download</a> <a href="#support">Support</a></nav></div>
+</header><!-- Hero -->
+<section class="hero">
+<div class="hero-inner">
+<div class="badge">Available on Autodesk App Store</div>
+<h1 style="font-family: 'Tahoma', serif;">XImport</h1>
+<p class="tagline">Streamline your Revit workflows with powerful productivity tools designed for real-world projects.</p>
+<div class="cta-group"><a href="#download" class="btn btn-primary">Get it on App Store</a> <a href="#features" class="btn btn-secondary">See Features</a></div>
+</div>
+</section>
+<!-- Features -->
+<section class="features" id="features">
+<div class="section-inner">
+<h2>Key Features</h2>
+<p class="section-intro">Everything you need to work faster using Excel for easy-to-create equipment schedules.  Aesthetic formatting that imports to user friendly Autodesk Revit drafting views.</p>
+<div class="feature-grid">
+<div class="feature-card">
+<h3><span class="icon">1</span> Imports Format</h3>
+<p>Formatting from Excel data is imported into Revit as lines and text on a drafting view.</p>
+</div>
+<div class="feature-card">
+<h3><span class="icon">2</span>Add-In</h3>
+<p>Resides as Add-In in Revit in the default Add-In tab.</p>
+</div>
+<div class="feature-card">
+<h3><span class="icon">3</span>Select Worksheet</h3>
+<p>Select from multiple worksheets within a single Microsoft Excel workbook.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Screenshots -->
+<p></p>
+<!-- 
+    
+    
+<section class="screenshots" id="screenshots">
+<div class="section-inner">
+<h2>Screenshots</h2>
+<p class="section-intro">A quick look at the interface.</p>
+<div class="screenshot-grid">
+<div class="screenshot">under construction</div>
+<div class="screenshot">under construction</div>
+<div class="screenshot">under construction</div>
+</div>
+</div>
+</section>
+
+ -->
+<p></p>
+<!-- Download / Pricing -->
+<section class="download" id="download">
+<div class="section-inner">
+<h2>Get XImport</h2>
+<p class="section-intro" style="margin-left: auto; margin-right: auto;">Available exclusively through the Autodesk App Store.</p>
+<div class="price-box">
+<div style="font-weight: 600; color: var(--text-muted);">One-time purchase</div>
+<div class="price">$19 <span>/ license</span></div>
+<p class="price-note">Free 14-day trial available.</p>
+<a href="https://apps.autodesk.com/" class="btn btn-primary" target="_blank" rel="noopener"> View on Autodesk App Store </a></div>
+</div>
+</section>
+<!-- Support -->
+<section class="support" id="support">
+<div class="section-inner">
+<h2>Support &amp; Resources</h2>
+<p class="section-intro">We’re here to help you get the most out of the product.</p>
+<div class="support-grid"><!--     
+    
+<div class="support-card">
+<h3>Documentation</h3>
+<p>Clear getting-started guide and full command reference included with the download.</p>
+<ul>
+<li><a href="#">Quick Start Guide (PDF)</a></li>
+<li><a href="#">Full Manual</a></li>
+<li><a href="#">Video Tutorials</a></li>
+</ul>
+</div>
+
+-->
+<div class="support-card">
+<h3>Contact Support</h3>
+<p>Questions or issues?    <span style="font-size: 0.95rem;">Email: </span><a href="mailto:xiimport@outlook.com" style="font-size: 0.95rem;">xiimport@outlook.com</a></p>
+</div>
+<div class="support-card">
+<h3>System Requirements</h3>
+<ul>
+<li>Revit 2026 or greater</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer --><footer>
+<div class="footer-inner">
+<div>
+<h4>XImport</h4>
+<p>Productivity tools for Revit users.</p>
+</div>
+<div>
+<h4>Product</h4>
+<a href="#features">Features</a> <a href="#download">Download</a> <a href="#support">Support</a></div>
+
+<!--  
+    
+<div>
+<h4>Legal</h4>
+<a href="#">Privacy Policy</a> <a href="#">Terms of Use</a> <a href="#">End User License</a></div>
+
+-->
+
+<div>
+<h4>Publisher</h4>
+<p>XImport<br /><br /></p>
+</div>
+</div>
+<div class="footer-bottom">© 2026 XImport. All rights reserved.<br />Autodesk, AutoCAD, and Revit are registered trademarks of Autodesk, Inc.</div>
+</footer>
+</body>
+</html>
